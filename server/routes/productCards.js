@@ -1,8 +1,6 @@
-// import express from 'express';
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-// import ProductCard from '../../productCard';
-const ProductCard = require('../../productCard');
+import ProductCard from '../../productCard';
 
 // router.get('/getCards', (req, res) => {
 //     ProductCard.find()
@@ -29,5 +27,4 @@ router.delete('/', (req, res) => {
 
 })
 
-module.exports = router;
-// export default router;
+export const questions = router

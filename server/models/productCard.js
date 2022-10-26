@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const ProductCardSchema = Schema({
@@ -13,4 +13,6 @@ const ProductCardSchema = Schema({
     }
 }, {timestamps: true});
 
-module.exports = ProductCard = mongoose.model('ProductCard', ProductCardSchema);
+const ProductCard = mongoose.model('ProductCard', ProductCardSchema);
+
+export default ProductCard;
