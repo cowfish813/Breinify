@@ -15,11 +15,11 @@ router.get('/getCardsss', async (req, res) => {
 	res.send({ value: JSON.parse(value) });
 });
 
-router.post('/', (rew, res) => {
+router.post('/', (req, res) => {
     const newCard = new ProductCard({
         productName: req.body.productName,
         description: req.body.description,
-        productImg: req.body.productImg
+        productImg: req.body.productImg,
     });
 })
 

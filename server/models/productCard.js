@@ -10,7 +10,12 @@ const ProductCardSchema = Schema({
     },
     productImg: {
         type: String
+    },
+    createdAt: {
+        type: Date, 
+        default: Date.now
     }
+
 }, {timestamps: true});
 
 const ProductCard = mongoose.model('ProductCard', ProductCardSchema);
