@@ -2,14 +2,16 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import redis from 'redis';
 
-import mongoose from 'mongoose';
 
 import ProductCard from './models/productCard.js';
+import Ioredis from 'ioredis';
+const redisIo = new Ioredis();
 /**
  * Connect to redis
  */
 const client = redis.createClient();
 await client.connect();
+
 client.on('connect', function (err) {
 	if (err) {
 		console.log('Could not establish a connection with Redis. ' + err);
@@ -27,8 +29,8 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
 	res.send('In the server');
 });
-console.dir(redis)
 
+const key = 'pcs';
 // GET
 // app.get('/get', (req, res) => {
 // 	// console.log(res, 'res')
@@ -41,67 +43,58 @@ console.dir(redis)
 // })
 
 app.get('/get', async (req, res) => {
-	await client.set('productCards', JSON.stringify(ProductCard.find()));
-	const value = await client.get('productCards');
+	// await client.set('productCards', JSON.stringify(ProductCard.find()));
+	// const value = await client.get('productCards');
+	// console.log(value);
+	// res.send({ value: JSON.parse(value) });
+	const value = client.get(key);
 	res.send({ value: JSON.parse(value) });
 });
 
+
 // POST
-app.post('/newCard', (req, res) => {
+app.post('/newCard', async (req, res) => {
+	const redisDB = JSON.parse(await client.get(key)) || {};
+
 	const newCard = new ProductCard({
         productName: req.body.productName,
         description: req.body.description,
-        productImg: req.body.productImg
+		productImg: req.body.productImg
     })
-
-	newCard.save()
-		.then(card => {
-			res.json(card)
-			console.log('Created At', card.createdAt)
-		})
-		.catch(err => res.status(404).json(err))
-	console.log(newCard);
+	redisDB[newCard._id] = newCard;
+	console.log(redisDB)
+	client.set(key, JSON.stringify(redisDB))
 })
 
 // PUT
-app.put('/:productCard_id', (req, res) => {
+app.put('/:productCard_id', async (req, res) => {
 	const id = req.params.productCard_id;
+	const redisDB = JSON.parse(await client.get(key)) || {};
 
-	ProductCard.findById({_id: id}, (err, doc) => {
-		if (err) {
-			console.log(err, doc);
-			const newCard = new ProductCard({
-				productName: req.body.productName,
-				description: req.body.description,
-				productImg: req.body.productImg
-			})
-
-			console.log(newCard, 'New User');
-
-			newCard.save()
-				.then(card => {
-					res.json(card)
-					console.log('Created At', card.createdAt)
-				})
-				.catch(err => res.status(404).json(err))
-		} else {
-			ProductCard.findByIdAndUpdate({_id: id}, {
-				productName: req.body.productName,
-				description: req.body.description,
-				productImg: req.body.productImg
-			})
-			.catch(err => res.status(404).json(err))
-		}
-	})
-
+	if (id in redisDB) {
+		redisDB[id].productName = req.body.productName
+		redisDB[id].description = req.body.description
+		redisDB[id].productImg = req.body.productImg || redisDB[id].productImg
+	} else {
+		const newCard = new ProductCard({
+			productName: req.body.productName,
+			description: req.body.description,
+			productImg: req.body.productImg
+		})
+		redisDB[newCard._id] = newCard;
+	}
+	console.log(redisDB, 'db');
+	client.set(key, JSON.stringify(redisDB));
 })
 
 // DELETE
-app.delete('/:productCard_id', (req, res) => {
+app.delete('/:productCard_id', async (req, res) => {
 	const id = req.params.productCard_id;
-	ProductCard.findOneAndDelete({_id: id})
-		.then(card => res.json({_id: card._id}))
-		.catch(err => res.status(404).json(err))
+	const redisDB = JSON.parse(await client.get(key));
+
+	delete redisDB[id];
+
+	client.set(key, JSON.stringify(redisDB));
 })
 
 // EXAMPLE
