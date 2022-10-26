@@ -1,11 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import redis from 'redis';
-
-
 import ProductCard from './models/productCard.js';
-import Ioredis from 'ioredis';
-const redisIo = new Ioredis();
+
 /**
  * Connect to redis
  */
@@ -32,22 +29,8 @@ app.get('/', (req, res) => {
 
 const key = 'pcs';
 // GET
-// app.get('/get', (req, res) => {
-// 	// console.log(res, 'res')
-//     ProductCard.find()
-//         .then(cards => {
-// 			console.log(res.json(cards))
-// 			res.json(cards)
-// 		})
-//         .catch(err => res.status(404).json(err))
-// })
-
 app.get('/get', async (req, res) => {
-	// await client.set('productCards', JSON.stringify(ProductCard.find()));
-	// const value = await client.get('productCards');
-	// console.log(value);
-	// res.send({ value: JSON.parse(value) });
-	const value = client.get(key);
+	const value = await client.get(key);
 	res.send({ value: JSON.parse(value) });
 });
 
@@ -62,7 +45,7 @@ app.post('/newCard', async (req, res) => {
 		productImg: req.body.productImg
     })
 	redisDB[newCard._id] = newCard;
-	console.log(redisDB)
+	// console.log(redisDB);
 	client.set(key, JSON.stringify(redisDB))
 })
 
@@ -83,7 +66,7 @@ app.put('/:productCard_id', async (req, res) => {
 		})
 		redisDB[newCard._id] = newCard;
 	}
-	console.log(redisDB, 'db');
+	// console.log(redisDB, 'db');
 	client.set(key, JSON.stringify(redisDB));
 })
 
@@ -91,7 +74,6 @@ app.put('/:productCard_id', async (req, res) => {
 app.delete('/:productCard_id', async (req, res) => {
 	const id = req.params.productCard_id;
 	const redisDB = JSON.parse(await client.get(key));
-
 	delete redisDB[id];
 
 	client.set(key, JSON.stringify(redisDB));
