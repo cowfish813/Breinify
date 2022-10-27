@@ -10,12 +10,14 @@ const ProductCard = () => { //thread props
 
 
     //BUTTONS
-    const handleDelete = (id) => {
+    const handleDelete = (e) => {
+        e.preventDefault();
         deleteCard(id);
     } 
 
-    const handleUpdate = () => {
-
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        putCard(id);
     }
 
     //ACTIONS
@@ -30,8 +32,8 @@ const ProductCard = () => { //thread props
             description: productImg,
             // productImg: "hello 0"
         })
-
     }
+
 
     return (
         <div>
@@ -40,6 +42,8 @@ const ProductCard = () => { //thread props
                 <span>{productName}</span>
                 <span>{desc}</span>
                 <span>{creationTime}</span>
+                <button onClick={(e) => handleUpdate(e)}>Update</button>
+                <button onClick={(e) => handleDelete(e)}>Delete</button>
             </div>
         </div>
     )
