@@ -27,9 +27,8 @@ app.get('/', (req, res) => {
 	res.send('In the server');
 });
 
+//redis key
 const key = 'pcs';
-
-//helpers
 
 //HELPERS
 const fetchDB = async() => {
@@ -49,9 +48,8 @@ app.get('/get', async (req, res) => {
 
 // POST
 app.post('/newCard', async (req, res) => {
-	// const redisDB = JSON.parse(await client.get(key)) || {};
 	const redisDB = await fetchDB();
-	console.log(Object.keys(redisDB).length, 'before');
+	// console.log(Object.keys(redisDB).length, 'before');
 	const newCard = new ProductCard({
         productName: req.body.productName,
         description: req.body.description,
@@ -60,13 +58,14 @@ app.post('/newCard', async (req, res) => {
 
 	redisDB[newCard._id] = newCard;
 	saveDB(key, redisDB);
-	console.log(Object.keys(redisDB).length, 'After');
+	// console.log(Object.keys(redisDB).length, 'After');
 })
 
 // PUT
 app.put('/:productCard_id', async (req, res) => {
 	const id = req.params.productCard_id;
-	const redisDB = JSON.parse(await client.get(key)) || {};
+	// const redisDB = JSON.parse(await client.get(key)) || {};
+	const redisDB = await fetchDB();
 
 	if (id in redisDB) {
 		redisDB[id].productName = req.body.productName
@@ -87,8 +86,9 @@ app.put('/:productCard_id', async (req, res) => {
 // DELETE
 app.delete('/:productCard_id', async (req, res) => {
 	const id = req.params.productCard_id;
-	const redisDB = JSON.parse(await client.get(key));
-	console.log(id);
+	// const redisDB = JSON.parse(await client.get(key));
+	const redisDB = await fetchDB();
+	console.log(id, 'id');
 
 	if (id in redisDB) {
 		const deletedContent = redisDB[id];
