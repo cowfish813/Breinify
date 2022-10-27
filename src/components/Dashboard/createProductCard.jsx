@@ -20,15 +20,15 @@ const CreateProductCard = () => {
 
     //BUTTON
     const handleSubmit = () => {
+        //IF CONDITION for empty fields in future iteration
         const newCard = {
             productName,
             description,
             productImg
         }
-
+        
         //save data
         createCard(newCard);
-
         //clear form data
         const ids = ['name', 'desc', 'img'];
         clearForm(ids);
