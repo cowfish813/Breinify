@@ -32,7 +32,7 @@ const key = 'pcs';
 //helpers
 
 //HELPERS
-const fetchDB = async(key) => {
+const fetchDB = async() => {
 	return JSON.parse(await client.get(key)) || {};
 }
 
@@ -45,25 +45,22 @@ const saveDB = (key, redisDB) => {
 app.get('/get', async (req, res) => {
 	const value = await client.get(key);
 	res.send({ value: JSON.parse(value) });
-	// console.log(value);
 });
 
 // POST
 app.post('/newCard', async (req, res) => {
-	const redisDB = JSON.parse(await client.get(key)) || {};
-
+	// const redisDB = JSON.parse(await client.get(key)) || {};
+	const redisDB = await fetchDB();
+	console.log(Object.keys(redisDB).length, 'before');
 	const newCard = new ProductCard({
         productName: req.body.productName,
         description: req.body.description,
 		productImg: req.body.productImg
     })
 
-	console.log(newCard);
-	
 	redisDB[newCard._id] = newCard;
 	saveDB(key, redisDB);
-
-
+	console.log(Object.keys(redisDB).length, 'After');
 })
 
 // PUT

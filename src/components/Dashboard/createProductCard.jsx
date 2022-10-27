@@ -1,35 +1,37 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
+import { clearForm } from '../../util/util';
 import axios from 'axios';
 
 const CreateProductCard = () => {
     const [productName, setProductName] = useState('')
-    const [productImg, setproductImg] = useState('');
+    const [productImg, setProductImg] = useState('');
     const [description, setDescription] = useState('');
     
     //ACTION
     const createCard = (newCard) => {
-        console.log(newCard ,'axios');
-
         axios.post('/newCard', {
             productName: newCard.productName,
             description: newCard.description,
             productImg: newCard.productImg
         })
     }
+
     //BUTTON
     const handleSubmit = () => {
-
         const newCard = {
             productName,
             description,
             productImg
         }
 
-        console.log(newCard, 'submit handler');
+        //save data
         createCard(newCard);
+
+        //clear form data
+        const ids = ['name', 'desc', 'img'];
+        clearForm(ids);
     }
 
     const handleInputChange = (e) => {
@@ -42,7 +44,7 @@ const CreateProductCard = () => {
         } else if (id ==='desc') {
             setDescription(value);
         } else if (id ==='img') {
-            setproductImg(value);
+            setProductImg(value);
         }
     }
 
