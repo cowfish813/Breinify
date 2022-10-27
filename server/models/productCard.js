@@ -17,15 +17,6 @@ const ProductCardSchema = Schema({
     }
 }, {timestamps: true});
 
-// class ProductCard {
-//     constructor({productName, description, productImg}) {
-//         this.productName = productName
-//         this.description = description
-//         this.productImg = productImg
-//         this.createdAt = Date.now
-//     }
-// }
-
 const ProductCard = mongoose.model('ProductCard', ProductCardSchema);
 
 export default ProductCard;

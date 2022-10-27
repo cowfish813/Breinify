@@ -28,12 +28,25 @@ app.get('/', (req, res) => {
 });
 
 const key = 'pcs';
+
+//helpers
+
+//HELPERS
+const fetchDB = async(key) => {
+	return JSON.parse(await client.get(key)) || {};
+}
+
+const saveDB = (key, redisDB) => {
+	client.set(key, JSON.stringify(redisDB));
+}
+
+
 // GET
 app.get('/get', async (req, res) => {
 	const value = await client.get(key);
 	res.send({ value: JSON.parse(value) });
+	// console.log(value);
 });
-
 
 // POST
 app.post('/newCard', async (req, res) => {
@@ -44,9 +57,13 @@ app.post('/newCard', async (req, res) => {
         description: req.body.description,
 		productImg: req.body.productImg
     })
+
+	console.log(newCard);
+	
 	redisDB[newCard._id] = newCard;
-	// console.log(redisDB);
-	client.set(key, JSON.stringify(redisDB))
+	saveDB(key, redisDB);
+
+
 })
 
 // PUT
@@ -66,17 +83,30 @@ app.put('/:productCard_id', async (req, res) => {
 		})
 		redisDB[newCard._id] = newCard;
 	}
-	// console.log(redisDB, 'db');
-	client.set(key, JSON.stringify(redisDB));
+
+	saveDB(key, redisDB);
 })
 
 // DELETE
 app.delete('/:productCard_id', async (req, res) => {
 	const id = req.params.productCard_id;
 	const redisDB = JSON.parse(await client.get(key));
-	delete redisDB[id];
+	console.log(id);
 
-	client.set(key, JSON.stringify(redisDB));
+	if (id in redisDB) {
+		const deletedContent = redisDB[id];
+		delete redisDB[id];
+		if (!(id in redisDB)) {
+			console.log(deletedContent, 'CONTENT DELETED');
+			res.send({ value: JSON.parse(deletedContent) });
+		} else {
+			console.log('ERROR IN DELETION');
+		}
+	} else {
+		console.log('ERROR: ID NOT FOUND')
+	}
+
+	saveDB(key, redisDB);
 })
 
 // EXAMPLE
