@@ -6,9 +6,11 @@ import CreateProductCard from './createProductCard';
 
 const Dashboard = () => {
     const [data, setData] = useState(null);
-    const [sorted, setSorted] = useState(true);
+    const [sortDateFlag, setSortDateFlag] = useState(true);
+    const [sortNameFlag, setSortNameFlag] = useState(true);
     const [sortedData, setSortedData] = useState([]);
-    const [buttonSortLabel, setButtonSortLabel] = useState('ASC');
+    const [buttonSortDate, setButtonSortDate] = useState('ASC');
+    const [buttonSortName, setButtonSortName] = useState('ASC');
 
     useEffect(() => { //compdidmount
         fetchCards();
@@ -21,58 +23,72 @@ const Dashboard = () => {
                 // const ele = {key: data.data.value[key]}
                 arr.push(data[key]);
             }
-            sortASC(arr);
+            sortNameASC(arr);
         }
     }, [data]) //Load sorted Array
 
     //SORTING FUNCS
-    const sortProductCards = () => {
-        setSorted(!sorted)
+    const sortProductCardsByDate = () => {
+        setSortDateFlag(!sortDateFlag);
+    }
+    const sortProductCardsByName = () => {
+        setSortNameFlag(!sortNameFlag);
     }
 
-    const sortASC = (arr) => {
-        setButtonSortLabel('ASC');
-        arr.sort((a,b) => (a.createdAt) - (b.createdAt));
+    const sortNameASC = (arr) => {
+        setButtonSortName('ASC');
+        arr.sort((a,b) => {return (a.productName < b.productName ? -1 : (a.productName > b.productName) ? 1 : 0)});
         setSortedData(arr);
-        console.log(arr, 'asc');
     }
 
-    const sortDESC = (arr) => {
-        setButtonSortLabel('DESC');
-        arr.sort((a,b) => (b.createdAt) - (a.createdAt));
+    const sortNameDESC = (arr) => {
+        setButtonSortName('DESC');
+        arr.sort((a,b) => (a.productName > b.productName ? -1 : (a.productName < b.productName) ? 1 : 0));
         setSortedData(arr);
-        console.log(arr, 'desc');
     }
 
-    useEffect(() => {
-        // console.log(data, sortedData, 'sorted')
-        if (sorted && data) { //sort by creation date
-            // ASC sort
-            sortASC(sortedData);
-        } else if (!sorted && data){
-            //DESC sort
-            sortDESC(sortedData);
+    const sortDateASC = (arr) => {
+        setButtonSortDate('ASC');
+        arr.sort((a,b) => (a.createdAt < b.createdAt ? -1 : (a.createdAt > b.createdAt) ? 1 : 0));
+        setSortedData(arr);
+    }
+
+    const sortDateDESC = (arr) => {
+        setButtonSortDate('DESC');
+        arr.sort((a,b) => (a.createdAt > b.createdAt ? -1 : (a.createdAt < b.createdAt) ? 1 : 0));
+        setSortedData(arr);
+    }
+
+    useEffect(() => { // NAME
+        if (sortNameFlag && data) { //sort by creation date
+            sortNameASC(sortedData);
+        } else if (!sortNameFlag && data){
+            sortNameDESC(sortedData);
         }
-    }, [sorted]) //after button press
-    
+    }, [sortNameFlag])
+
+    useEffect(() => { //DATE
+        if (sortDateFlag && data) { //sort by creation date
+            sortDateASC(sortedData);
+        } else if (!sortDateFlag && data){
+            sortDateDESC(sortedData);
+        }
+    }, [sortDateFlag])
+
     // ACTIONS
     const fetchCards = async () => {
         const res = await axios.get('/get');
         await setData(res.data.value); //reset for redux
-        // await console.log(res.data.value, 'loaded');
-    } //working so far
+    }
 
-    // useEffect(() => {
-    //     console.log(data, 'data');
-    // },[data])
-    
-    // console.log(fetchCards());
-    //render all the product cards
+
+
     return (
         <div>
             <CreateProductCard/>
             <div id='card-container'>
-                <button onClick={() => sortProductCards()}>Sort Product in: {buttonSortLabel}</button>
+                <button onClick={() => sortProductCardsByDate()}>Sort Product By Date: {buttonSortDate}</button>
+                <button onClick={() => sortProductCardsByName()}>Sort Product By Name: {buttonSortName}</button>
                 {sortedData.map(card => <ProductCard data={card} />)}
             </div>
         </div>

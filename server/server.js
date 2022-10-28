@@ -29,6 +29,7 @@ app.get('/', (req, res) => {
 
 //redis key
 const key = 'pcs';
+// separate image key for reqs? or maintain urls?
 
 //HELPERS
 const fetchDB = async() => {
@@ -68,15 +69,16 @@ app.put('/:productCard_id', async (req, res) => {
 	const redisDB = await fetchDB();
 
 	if (id in redisDB) {
-		redisDB[id].productName = req.body.productName
-		redisDB[id].description = req.body.description
+		const oldData = JSON.stringify(redisDB[id]);
+		redisDB[id].productName = req.body.productName || redisDB[id].productImg
 		redisDB[id].productImg = req.body.productImg || redisDB[id].productImg
 		res.send({ value: (redisDB[id]) });
-	} else { //i don't think i'll ever hit this on FE(?)
-		console.log('CREATED VIA PUT')
+		console.log('UPDATE SUCCESSFUL =>' , 'Before:', oldData, 'After:', redisDB[id]);
+	} else { //DEBUGGER
+		console.log('ERROR -> CREATION VIA PUT REQ');
 		const newCard = new ProductCard({
 			productName: req.body.productName,
-			description: req.body.description,
+			description: 'null',
 			productImg: req.body.productImg
 		})
 		redisDB[newCard._id] = newCard;

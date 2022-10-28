@@ -27,9 +27,7 @@ const CreateProductCard = () => {
             productImg
         }
         
-        //save data
         createCard(newCard);
-        //clear form data
         const ids = ['name', 'desc', 'img'];
         clearForm(ids);
     }
@@ -50,19 +48,33 @@ const CreateProductCard = () => {
 
     return (
         <Form onSubmit={() => handleSubmit()}>
-            <Form.Group className="mb-3" controlId="formCreateName">
+            <Form.Group className="mb-3" >
                 <Form.Label>Name</Form.Label> 
-                <Form.Control id='name' type="text" placeholder="Enter Name" onInput={(e) => handleInputChange(e)} />
+                <Form.Control 
+                    id='name' 
+                    type="text" 
+                    placeholder="Enter Name" 
+                    onInput={(e) => handleInputChange(e)} 
+                    />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formCreateDesc">
+            <Form.Group className="mb-3" >
                 <Form.Label>Description</Form.Label> 
-                <Form.Control id='desc' as="textarea" placeholder="Enter Description" onInput={(e) => handleInputChange(e)} />
+                <Form.Control 
+                    id='desc' 
+                    as="textarea" 
+                    placeholder="Enter Description" 
+                    onInput={(e) => handleInputChange(e)} 
+                    />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formCreateName">
+            <Form.Group className="mb-3" >
                 <Form.Label>Product Image Link</Form.Label> 
-                <Form.Control id='img' type="text" placeholder="Enter Image Link" onInput={(e) => handleInputChange(e)} />
+                <Form.Control 
+                    id='img' type="text" 
+                    placeholder="Enter Image Link" 
+                    onInput={(e) => handleInputChange(e)} 
+                    />
             </Form.Group>
 
 

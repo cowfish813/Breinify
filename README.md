@@ -11,7 +11,7 @@ You will be creating a full stack web application using Node with Express as the
 1. Create an Express server that:
     - GET: Reads and returns the content from redis.√
     - POST: Creates a new product and writes it to redis, and returns the newly created product content.√
-    - PUT: Updates a product and writes it to redis, and returns the updated product content.
+    - PUT: Updates a product and writes it to redis, and returns the updated product content.√
     - DELETE: Deletes the product from redis, and returns the delete product content.√
 
 #### Frontend Requirements
@@ -21,8 +21,8 @@ You will be creating a full stack web application using Node with Express as the
  √   - Product Name `productName`√
 √    - Description `description`√
 √    - Creation Time `creationTime`√
-2. A filter feature to filter the cards by the product name.
-3. A sorting feature to sort the cards by their `creationTime` in either acsending or desending order.
+√ 2. A filter feature to filter the cards by the product name.
+√ 3. A sorting feature to sort the cards by their `creationTime` in either acsending or desending order.
 √4. Add a button to create a new card.√
 √5. Add a button to delete an existing card.√
 6. Add an edit feature to change the card's name (`productName`) and image (`productImg`)
