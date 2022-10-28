@@ -1,20 +1,50 @@
-const createCard = (newCard) => {
-    axios.post('/newCard', {
-        productName: newCard.productName,
-        description: newCard.description,
-        productImg: newCard.productImg
-    })
+import axios from 'axios';
+import {createAction} from '@reduxjs/toolkit';
+
+const receiveCards = createAction('RECEIVE_CARDS');
+const receiveCard = createAction('RECEIVE_CARD');
+const patchCard = createAction('PATCH_CARD');
+const removeCard = createAction('REMOVE_CARD');
+
+export const createCard = (newCard) => async dispatch => {
+    try {
+        const res = await axios.post('/newCard', {
+            productName: newCard.productName,
+            description: newCard.description,
+            productImg: newCard.productImg
+        });
+
+        dispatch(receiveCard(res));
+    } catch (err) {
+        console.log(err);
+    }
 }
 
-const fetchCards = async () => {
-    const res = await axios.get('/get');
-    await setData(res.data.value); //reset for redux
+export const fetchCards = () => async dispatch => {
+    try {
+        const res = await axios.get('/get');
+        dispatch(receiveCards(res));
+        // await setData(res.data.value); //reset for redux
+
+    } catch (err) {
+        console.log(err);
+    }
 }
 
-const updateCard = (id, payload) => {
-    axios.put(`/${id}`, payload)    
+export const updateCard = (id, payload)=> async dispatch => {
+    try {
+        const res = await axios.put(`/${id}`, payload);
+        dispatch(patchCard(res));
+    } catch (err) {
+        console.log(err);
+    }
 }
 
-const deleteCard = (id) => {
-    axios.delete(`/${id}`);
+export const deleteCard = (id) => async dispatch => {
+    try {
+        const res = await axios.delete(`/${id}`);
+        dispatch(removeCard(res));
+    } catch (err) {
+        console.log(err);
+    }
 }
