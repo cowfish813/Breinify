@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ProductCard from './product';
+import ProductCard from './productCard';
 
 import axios from 'axios';
 import CreateProductCard from './createProductCard';
@@ -10,47 +10,56 @@ const Dashboard = () => {
     const [sortedData, setSortedData] = useState([]);
     const [buttonSortLabel, setButtonSortLabel] = useState('ASC');
 
-        //axios call stuff
-	// axios.get('/get')
-	// 	.then(res => console.log(res, 'res'))
-    
-    
     useEffect(() => { //compdidmount
         fetchCards();
     }, []) 
 
     useEffect(() => {
-        const arr = [];
         if (data) {
+            const arr = [];
             for (let key in data) {
-                const ele = {key: data[key]}
+                // const ele = {key: data.data.value[key]}
                 arr.push(data[key]);
             }
+            sortASC(arr);
         }
-        arr.sort()
-        setSortedData(arr);
     }, [data]) //Load sorted Array
-
-    useEffect(() => {
-        if (sorted) { //sort by creation date
-            // ASC sort
-            setButtonSortLabel('ASC');
-        } else {
-            //DESC sort
-            setButtonSortLabel('DESC');
-        }
-    }, [sorted]) //after button press
 
     //SORTING FUNCS
     const sortProductCards = () => {
         setSorted(!sorted)
     }
+
+    const sortASC = (arr) => {
+        setButtonSortLabel('ASC');
+        arr.sort((a,b) => (a.createdAt) - (b.createdAt));
+        setSortedData(arr);
+        console.log(arr, 'asc');
+    }
+
+    const sortDESC = (arr) => {
+        setButtonSortLabel('DESC');
+        arr.sort((a,b) => (b.createdAt) - (a.createdAt));
+        setSortedData(arr);
+        console.log(arr, 'desc');
+    }
+
+    useEffect(() => {
+        // console.log(data, sortedData, 'sorted')
+        if (sorted && data) { //sort by creation date
+            // ASC sort
+            sortASC(sortedData);
+        } else if (!sorted && data){
+            //DESC sort
+            sortDESC(sortedData);
+        }
+    }, [sorted]) //after button press
     
     // ACTIONS
     const fetchCards = async () => {
         const res = await axios.get('/get');
-        await setData(res); //reset for redux
-        await console.log(res, 'loaded');
+        await setData(res.data.value); //reset for redux
+        // await console.log(res.data.value, 'loaded');
     } //working so far
 
     // useEffect(() => {
@@ -61,11 +70,11 @@ const Dashboard = () => {
     //render all the product cards
     return (
         <div>
-            dashboard is working
             <CreateProductCard/>
-            {/* {sortedData.map() all the Product card} */}
-            <button>Sort Product {}</button>
-            <ProductCard/>
+            <div id='card-container'>
+                <button onClick={() => sortProductCards()}>Sort Product in: {buttonSortLabel}</button>
+                {sortedData.map(card => <ProductCard data={card} />)}
+            </div>
         </div>
     )
 }

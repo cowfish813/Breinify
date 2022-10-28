@@ -32,10 +32,12 @@ const key = 'pcs';
 
 //HELPERS
 const fetchDB = async() => {
+	console.log('FETCHING');
 	return JSON.parse(await client.get(key)) || {};
 }
 
 const saveDB = (key, redisDB) => {
+	console.log('SAVING');
 	client.set(key, JSON.stringify(redisDB));
 }
 
@@ -49,16 +51,14 @@ app.get('/get', async (req, res) => {
 // POST
 app.post('/newCard', async (req, res) => {
 	const redisDB = await fetchDB();
-	// console.log(Object.keys(redisDB).length, 'before');
 	const newCard = new ProductCard({
         productName: req.body.productName,
         description: req.body.description,
 		productImg: req.body.productImg
     })
-
 	redisDB[newCard._id] = newCard;
+	res.send({ value: redisDB[newCard._id] });
 	saveDB(key, redisDB);
-	// console.log(Object.keys(redisDB).length, 'After');
 })
 
 // PUT
@@ -71,13 +71,16 @@ app.put('/:productCard_id', async (req, res) => {
 		redisDB[id].productName = req.body.productName
 		redisDB[id].description = req.body.description
 		redisDB[id].productImg = req.body.productImg || redisDB[id].productImg
-	} else {
+		res.send({ value: (redisDB[id]) });
+	} else { //i don't think i'll ever hit this on FE(?)
+		console.log('CREATED VIA PUT')
 		const newCard = new ProductCard({
 			productName: req.body.productName,
 			description: req.body.description,
 			productImg: req.body.productImg
 		})
 		redisDB[newCard._id] = newCard;
+		res.send({ value: (redisDB[newCard._id]) });
 	}
 
 	saveDB(key, redisDB);
@@ -86,16 +89,14 @@ app.put('/:productCard_id', async (req, res) => {
 // DELETE
 app.delete('/:productCard_id', async (req, res) => {
 	const id = req.params.productCard_id;
-	// const redisDB = JSON.parse(await client.get(key));
 	const redisDB = await fetchDB();
-	console.log(id, 'id');
 
 	if (id in redisDB) {
 		const deletedContent = redisDB[id];
+		res.send({ value: redisDB[id] });
 		delete redisDB[id];
 		if (!(id in redisDB)) {
 			console.log(deletedContent, 'CONTENT DELETED');
-			res.send({ value: JSON.parse(deletedContent) });
 		} else {
 			console.log('ERROR IN DELETION');
 		}

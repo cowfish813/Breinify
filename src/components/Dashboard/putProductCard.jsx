@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { clearForm } from '../../util/util';
 
 const UpdateProductCard = () => {
-    const [id, setId] = useState('');
+    const [_id, set_id] = useState('');
     const [productName, setProductName] = useState('');
     const [productImg, setProductImg] = useState('');
 
@@ -16,6 +17,15 @@ const UpdateProductCard = () => {
         } else if (id ==='putImg') {
             setProductImg(value);
         }
+    }
+
+    //ACTIONS
+    const putCard = (id) => {
+        axios.put(`${id}`, {
+            productName: productName,
+            description: productImg,
+            // productImg: "hello 0"
+        })
     }
 
     return (
@@ -36,4 +46,4 @@ const UpdateProductCard = () => {
     )
 }
 
-//input change
+export default UpdateProductCard;
