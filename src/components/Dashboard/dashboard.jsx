@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from './productCard';
-
-import axios from 'axios';
 import CreateProductCard from './createProductCard';
+import axios from 'axios';
 
 const Dashboard = () => {
     const [data, setData] = useState(null);

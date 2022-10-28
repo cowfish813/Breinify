@@ -10,7 +10,6 @@ const UpdateProductCard = (props) => {
     const [productName, setProductName] = useState('');
     const [productImg, setProductImg] = useState('');
     const id = props.data._id;
-    console.log(id,'id', props, 'work')
 
     const handleInputChange = (e) => {
         e.preventDefault();
@@ -31,13 +30,13 @@ const UpdateProductCard = (props) => {
             productImg: productImg,
         }
         updateCard(id, payload)
-        clearForm();
-        //add close modal unless error
+        const ids = ['update-name', 'update-img'];
+        clearForm(ids);
+        //add close modal unless error func
     }
 
     //ACTIONS
     const updateCard = (id, payload) => {
-        console.log(payload)
         axios.put(`/${id}`, payload)    
     }
 

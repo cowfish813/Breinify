@@ -4,3 +4,7 @@ export const clearForm = (idsArray) => {
         htmlID.value = '';
     })
 }
+
+export const closeModal = () => {
+    
+}

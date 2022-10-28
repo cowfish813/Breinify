@@ -69,7 +69,7 @@ const CreateProductCard = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" >
-                <Form.Label>Product Image Link</Form.Label> 
+                <Form.Label>Product Image URL</Form.Label> 
                 <Form.Control 
                     id='img' type="text" 
                     placeholder="Enter Image Link" 
