@@ -1,19 +1,14 @@
 import { createReducer } from "@reduxjs/toolkit";
 
 const initialState = {
-    productCards: { 
-        // hello: 'not working'
-    }
+    productCards: { }
 };
 
 const productCardReducer = createReducer(initialState, builder => {
     builder
-        .addCase('RECEIVE_CARDS', (NEW_STATE, action) => { 
-                console.log(NEW_STATE, action, '1');
-                const productCards = {};
-                console.log(action.payload);
-                action.payload.data.map(productCard => productCards[productCard._id]);
-                NEW_STATE.productCards = productCards;
+        .addCase('RECEIVE_CARDS', (NEW_STATE, action) => {
+            const productCards = action.payload.data.value;
+            NEW_STATE.productCards = productCards;
         })
         .addCase('RECEIVE_CARD', (NEW_STATE, action) => {
             console.log(NEW_STATE, action, '2');

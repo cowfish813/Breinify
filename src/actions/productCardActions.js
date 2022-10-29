@@ -22,9 +22,7 @@ export const createCard = (newCard) => async dispatch => {
 
 export const fetchCards = () => async dispatch => {
     try {
-        debugger;
         const res = await axios.get('/get');
-        debugger;
         console.log(res, 'working');
         dispatch(receiveCards(res));
     } catch (err) {
