@@ -20,7 +20,7 @@ const CreateProductCard = () => {
         
         dispatch(createCard(newCard));
         const ids = ['name', 'desc', 'img'];
-        clearForm(ids);
+        // clearForm(ids);
     }
 
     const handleInputChange = (e) => {
@@ -34,6 +34,7 @@ const CreateProductCard = () => {
             setDescription(value);
         } else if (id ==='img') {
             setProductImg(value);
+            console.log(value);
         }
     }
 
@@ -62,7 +63,7 @@ const CreateProductCard = () => {
             <Form.Group className="mb-3" >
                 <Form.Label>Product Image URL</Form.Label> 
                 <Form.Control 
-                    id='img' type="url" 
+                    id='img' type="file" 
                     placeholder="Enter Image Link" 
                     onInput={(e) => handleInputChange(e)} 
                     />
