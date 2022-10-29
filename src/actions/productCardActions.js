@@ -1,12 +1,13 @@
 import axios from 'axios';
 import {createAction} from '@reduxjs/toolkit';
 
-const receiveCards = createAction('RECEIVE_CARDS');
 const receiveCard = createAction('RECEIVE_CARD');
+const receiveCards = createAction('RECEIVE_CARDS');
 const patchCard = createAction('PATCH_CARD');
 const removeCard = createAction('REMOVE_CARD');
 
 export const createCard = (newCard) => async dispatch => {
+    debugger;
     try {
         const res = await axios.post('/newCard', {
             productName: newCard.productName,
@@ -14,18 +15,18 @@ export const createCard = (newCard) => async dispatch => {
             productImg: newCard.productImg
         });
 
-        dispatch(receiveCard(res));
+        return dispatch(receiveCard(res));
     } catch (err) {
         console.log(err);
     }
 }
 
 export const fetchCards = () => async dispatch => {
+    debugger;
     try {
         const res = await axios.get('/get');
+        console.log(res, 'working');
         dispatch(receiveCards(res));
-        // await setData(res.data.value); //reset for redux
-
     } catch (err) {
         console.log(err);
     }

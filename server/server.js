@@ -40,6 +40,7 @@ const fetchDB = async() => {
 const saveDB = (key, redisDB) => {
 	console.log('SAVING');
 	client.set(key, JSON.stringify(redisDB));
+	console.log('SAVED');
 }
 
 

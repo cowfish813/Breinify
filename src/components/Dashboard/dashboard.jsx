@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from './productCard';
 import CreateProductCard from './createProductCard';
-import axios from 'axios';
+import { fetchCards } from '../../actions/productCardActions';
+import { useSelector, connect } from 'react-redux';
+// import axios from 'axios';
 
 const Dashboard = () => {
-    const [data, setData] = useState(null);
+    const data = useSelector(state => {
+        return state.productCards;
+    })
+    // const [data, setData] = useState(null);
     const [sortDateFlag, setSortDateFlag] = useState(true);
     const [sortNameFlag, setSortNameFlag] = useState(true);
     const [sortedData, setSortedData] = useState([]);
@@ -12,8 +17,9 @@ const Dashboard = () => {
     const [buttonSortName, setButtonSortName] = useState('ASC');
 
     useEffect(() => { //compdidmount
+        // setData(fetchCards());
         fetchCards();
-    }, []) 
+    }, [fetchCards]) 
 
     useEffect(() => {
         if (data) {
@@ -75,12 +81,10 @@ const Dashboard = () => {
     }, [sortDateFlag])
 
     // ACTIONS
-    const fetchCards = async () => {
-        const res = await axios.get('/get');
-        await setData(res.data.value); //reset for redux
-    }
-
-
+    // const fetchCards = async () => {
+    //     const res = await axios.get('/get');
+    //     await setData(res.data.value); //reset for redux
+    // }
 
     return (
         <div>
@@ -94,4 +98,17 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard;
+const mdtp = (dispatch) => ({
+    fetchCards: () => dispatch(fetchCards())
+})
+
+
+const mstp = (state) =>{
+    console.log(state, 'mstp');
+    return ({
+        // productCards: state.productCardReducer.productCards ? 
+        // Object.values(state.productCardReducer.productCards) : {}
+    })
+}
+
+export default connect(mstp, mdtp)(Dashboard);

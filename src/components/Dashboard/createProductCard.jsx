@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { clearForm } from '../../util/util';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { createCard } from '../../actions/productCardActions';
+// import axios from 'axios';
 
 const CreateProductCard = () => {
     const [productName, setProductName] = useState('')
@@ -10,13 +12,13 @@ const CreateProductCard = () => {
     const [description, setDescription] = useState('');
     
     //ACTION
-    const createCard = (newCard) => {
-        axios.post('/newCard', {
-            productName: newCard.productName,
-            description: newCard.description,
-            productImg: newCard.productImg
-        })
-    }
+    // const createCard = (newCard) => {
+    //     axios.post('/newCard', {
+    //         productName: newCard.productName,
+    //         description: newCard.description,
+    //         productImg: newCard.productImg
+    //     })
+    // }
 
     //BUTTON
     const handleSubmit = () => {
@@ -85,4 +87,14 @@ const CreateProductCard = () => {
     )
 }
 
-export default CreateProductCard;
+const mdtp = (dispatch) => { return ({
+    createCard: () => dispatch(createCard())
+})}
+
+const mstp = (state) =>{
+    return (
+        {}
+    )
+}
+
+export default connect(mstp, mdtp)(CreateProductCard);
