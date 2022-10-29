@@ -15,7 +15,7 @@ const ProductCard = (props) => {
 
     const handleUpdate = (e) => {
         e.preventDefault();
-        dispatch(renderModal());
+        dispatch(renderModal(_id));
     }
 
     const imageCheck = () => {

@@ -66,9 +66,8 @@ app.post('/newCard', async (req, res) => {
 // PUT
 app.put('/:productCard_id', async (req, res) => {
 	const id = req.params.productCard_id;
-	// const redisDB = JSON.parse(await client.get(key)) || {};
 	const redisDB = await fetchDB();
-
+	console.log(id, req.params, req.body);
 	if (id in redisDB) {
 		const oldData = JSON.stringify(redisDB[id]);
 		redisDB[id].productName = req.body.productName || redisDB[id].productImg
