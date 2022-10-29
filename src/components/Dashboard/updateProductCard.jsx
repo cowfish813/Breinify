@@ -26,7 +26,6 @@ const UpdateProductCard = (props) => {
         }
     }
 
-    // TO DO
     const handleSubmit = () => {
         const payload = {
             productName: productName,
@@ -42,7 +41,6 @@ const UpdateProductCard = (props) => {
         dispatch(unRenderModal());
     }
     if (isModalOpen) {
-
         return (
             <Modal.Dialog>
                 <Modal.Header closeButton onClick={() => handleExit()}>

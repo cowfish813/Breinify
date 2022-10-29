@@ -5,47 +5,38 @@ import { fetchCards } from '../../actions/productCardActions';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Dashboard = () => {
+    // const [sortNameFlag, setSortNameFlag] = useState(true);
+    // const [buttonSortName, setButtonSortName] = useState('ASC');
     const [sortDateFlag, setSortDateFlag] = useState(true);
-    const [sortNameFlag, setSortNameFlag] = useState(true);
     const [sortedData, setSortedData] = useState([]);
     const [buttonSortDate, setButtonSortDate] = useState('ASC');
-    const [buttonSortName, setButtonSortName] = useState('ASC');
+    const [searchField, setSearchField] = useState('');
     const data = useSelector(state => state.productCardReducer.productCards);
+    const [unsortedData, setunsortedData] = useState('');
     const dispatch = useDispatch();
 
     useEffect(() => { //compdidmount
         dispatch(fetchCards());
     }, [dispatch]) 
 
+    const resetData = () => {
+        const arr = [];
+        for (let key in data) {
+            arr.push(data[key]);
+        }
+        setunsortedData(arr);
+        sortDateASC(arr);
+    }
+
     useEffect(() => {
         if (data) {
-            const arr = [];
-            for (let key in data) {
-                // const ele = {key: data.data.value[key]}
-                arr.push(data[key]);
-            }
-            sortNameASC(arr);
+            resetData();
         }
     }, [data]) //Load sorted Array
 
     //SORTING FUNCS
     const sortProductCardsByDate = () => {
         setSortDateFlag(!sortDateFlag);
-    }
-    const sortProductCardsByName = () => {
-        setSortNameFlag(!sortNameFlag);
-    }
-
-    const sortNameASC = (arr) => {
-        setButtonSortName('ASC');
-        arr.sort((a,b) => {return (a.productName < b.productName ? -1 : (a.productName > b.productName) ? 1 : 0)});
-        setSortedData(arr);
-    }
-
-    const sortNameDESC = (arr) => {
-        setButtonSortName('DESC');
-        arr.sort((a,b) => (a.productName > b.productName ? -1 : (a.productName < b.productName) ? 1 : 0));
-        setSortedData(arr);
     }
 
     const sortDateASC = (arr) => {
@@ -60,14 +51,6 @@ const Dashboard = () => {
         setSortedData(arr);
     }
 
-    useEffect(() => { // NAME
-        if (sortNameFlag && data) { //sort by creation date
-            sortNameASC(sortedData);
-        } else if (!sortNameFlag && data){
-            sortNameDESC(sortedData);
-        }
-    }, [sortNameFlag])
-
     useEffect(() => { //DATE
         if (sortDateFlag && data) { //sort by creation date
             sortDateASC(sortedData);
@@ -76,12 +59,34 @@ const Dashboard = () => {
         }
     }, [sortDateFlag])
 
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const value = e.target.value;
+        setSearchField(value);
+    }
+
+    useEffect(() => {
+        const arr = [];
+        for (let key in data) {
+            arr.push(data[key]);
+        }
+        
+        if (searchField.length > 0) {
+            resetData();
+            setSortedData(arr.filter(product => product.productName.indexOf(searchField) > -1));
+        } else {
+            resetData();
+        }
+        console.log(sortedData.length,unsortedData.length)
+    }, [searchField])
+    
+
     return (
         <div>
             <CreateProductCard/>
             <div id='card-container'>
                 <button onClick={() => sortProductCardsByDate()}>Sort Product By Date: {buttonSortDate}</button>
-                <button onClick={() => sortProductCardsByName()}>Sort Product By Name: {buttonSortName}</button>
+                <input id='search' onChange={(e) => handleSearch(e)} type='search'></input>
                 {sortedData.map(card => <ProductCard data={card} />)}
             </div>
         </div>

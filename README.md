@@ -21,7 +21,7 @@ You will be creating a full stack web application using Node with Express as the
  √   - Product Name `productName`√
 √    - Description `description`√
 √    - Creation Time `creationTime`√
-√ 2. A filter feature to filter the cards by the product name.
+ 2. A filter feature to filter the cards by the product name.
 √ 3. A sorting feature to sort the cards by their `creationTime` in either acsending or desending order.
 √4. Add a button to create a new card.√
 √5. Add a button to delete an existing card.√

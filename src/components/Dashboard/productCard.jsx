@@ -6,9 +6,7 @@ import { renderModal } from '../../actions/modalActions';
 
 const ProductCard = (props) => { 
     const {createdAt, description, productImg, productName, _id} = props.data
-    const [updateModalShow, setUpdateModalShow] = useState(false);
     const dispatch = useDispatch();
-
 
     //BUTTONS
     const handleDelete = (e) => {
@@ -19,31 +17,30 @@ const ProductCard = (props) => {
     const handleUpdate = (e) => {
         e.preventDefault();
         dispatch(renderModal());
-        setUpdateModalShow(<UpdateProductCard data={props.data}/>) 
     }
 
     const imageCheck = () => {
         let flag = false;
-        const domainNames = ['.org', '.com', '.net', '.gov', '.mil', '.edu'];
-        domainNames.forEach(name => { if (productImg.indexOf(name))flag = true});
+        const domainNames = ['https://', '.org', '.com', '.net', '.gov', '.mil', '.edu', '//', 'www.'];
+        domainNames.forEach(name => { 
+            if (productImg.indexOf(name) > -1)flag = true 
+        });
+
         if (flag) {
-            return(<></>);
             return (<img src={productImg}></img>);
         } else {
             //locally stored image?
-            return(<></>);
+            return(
+                <>
+                    Invalid URL: {productImg}
+                </>
+            );
         }
     }
 
-    //ACTIONS
-    // const deleteCard = (id) => {
-    //     axios.delete(`/${id}`);
-    // }
-
-
     return (
         <div>
-            {updateModalShow}
+            <UpdateProductCard data={props.data}/>
             <div>
                 {imageCheck()}
                 <div>Product Name: {productName}</div>
