@@ -7,12 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateCard } from '../../actions/productCardActions';
 import { unRenderModal } from '../../actions/modalActions';
 
-const UpdateProductCard = (props) => {
+const UpdateProductCard = () => {
     const [productName, setProductName] = useState('');
     const [productImg, setProductImg] = useState('');
     const isModalOpen = useSelector(state => state.modalReducer.modal);
     const dispatch = useDispatch();
-    const id = props.data._id;
+    const id = useSelector(state => state.modalReducer.id);
 
     const handleInputChange = (e) => {
         e.preventDefault();
@@ -40,6 +40,7 @@ const UpdateProductCard = (props) => {
     const handleExit = () => {
         dispatch(unRenderModal());
     }
+    
     if (isModalOpen) {
         return (
             <Modal.Dialog>

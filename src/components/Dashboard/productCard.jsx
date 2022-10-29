@@ -16,7 +16,7 @@ const ProductCard = (props) => {
 
     const handleUpdate = (e) => {
         e.preventDefault();
-        dispatch(renderModal());
+        dispatch(renderModal(_id));
     }
 
     const imageCheck = () => {
@@ -40,7 +40,7 @@ const ProductCard = (props) => {
 
     return (
         <div>
-            <UpdateProductCard data={props.data}/>
+            {/* <UpdateProductCard data={props.data}/> */}
             <div>
                 {imageCheck()}
                 <div>Product Name: {productName}</div>
