@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import UpdateProductCard from './updateProductCard';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteCard } from '../../actions/productCardActions';
 import { renderModal } from '../../actions/modalActions';
@@ -39,7 +38,6 @@ const ProductCard = (props) => {
 
     return (
         <div>
-            <UpdateProductCard data={props.data}/>
             <div>
                 {imageCheck()}
                 <div>Product Name: {productName}</div>
