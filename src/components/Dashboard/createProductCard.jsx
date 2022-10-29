@@ -2,34 +2,26 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { clearForm } from '../../util/util';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createCard } from '../../actions/productCardActions';
-// import axios from 'axios';
 
 const CreateProductCard = () => {
     const [productName, setProductName] = useState('')
     const [productImg, setProductImg] = useState('');
     const [description, setDescription] = useState('');
-    
-    //ACTION
-    // const createCard = (newCard) => {
-    //     axios.post('/newCard', {
-    //         productName: newCard.productName,
-    //         description: newCard.description,
-    //         productImg: newCard.productImg
-    //     })
-    // }
+    const dispatch = useDispatch();
 
     //BUTTON
     const handleSubmit = () => {
-        //IF CONDITION for empty fields in future iteration
+        // TODO
+        //IF CONDITION for empty fields for local error handling if time allows
         const newCard = {
             productName,
             description,
             productImg
         }
         
-        createCard(newCard);
+        dispatch(createCard(newCard));
         const ids = ['name', 'desc', 'img'];
         clearForm(ids);
     }
@@ -87,14 +79,4 @@ const CreateProductCard = () => {
     )
 }
 
-const mdtp = (dispatch) => { return ({
-    createCard: () => dispatch(createCard())
-})}
-
-const mstp = (state) =>{
-    return (
-        {}
-    )
-}
-
-export default connect(mstp, mdtp)(CreateProductCard);
+export default CreateProductCard;

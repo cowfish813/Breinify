@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 import UpdateProductCard from './updateProductCard';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { deleteCard } from '../../actions/productCardActions';
+import { renderModal } from '../../actions/modalActions';
 
-const ProductCard = (props) => { //thread props
-    const [updateModalShow, setUpdateModalShow] = useState(<></>);
+const ProductCard = (props) => { 
     const {createdAt, description, productImg, productName, _id} = props.data
+    const [updateModalShow, setUpdateModalShow] = useState(false);
+    const dispatch = useDispatch();
+
 
     //BUTTONS
     const handleDelete = (e) => {
         e.preventDefault();
-        deleteCard(_id);
+        dispatch(deleteCard(_id));
     } 
     //TO DO
     const handleUpdate = (e) => {
         e.preventDefault();
-        //useEffectHook for global modal variable
-            //this function here will set the flag
-                //modal component will reset flag
+        dispatch(renderModal());
         setUpdateModalShow(<UpdateProductCard data={props.data}/>) 
     }
 
@@ -34,9 +36,9 @@ const ProductCard = (props) => { //thread props
     }
 
     //ACTIONS
-    const deleteCard = (id) => {
-        axios.delete(`/${id}`);
-    }
+    // const deleteCard = (id) => {
+    //     axios.delete(`/${id}`);
+    // }
 
 
     return (

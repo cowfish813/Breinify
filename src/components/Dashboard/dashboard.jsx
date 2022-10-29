@@ -3,7 +3,6 @@ import ProductCard from './productCard';
 import CreateProductCard from './createProductCard';
 import { fetchCards } from '../../actions/productCardActions';
 import { useSelector, useDispatch } from 'react-redux';
-// import axios from 'axios';
 
 const Dashboard = () => {
     const [sortDateFlag, setSortDateFlag] = useState(true);

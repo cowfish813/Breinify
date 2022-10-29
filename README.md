@@ -25,7 +25,7 @@ You will be creating a full stack web application using Node with Express as the
 √ 3. A sorting feature to sort the cards by their `creationTime` in either acsending or desending order.
 √4. Add a button to create a new card.√
 √5. Add a button to delete an existing card.√
-6. Add an edit feature to change the card's name (`productName`) and image (`productImg`)
+√6. Add an edit feature to change the card's name (`productName`) and image (`productImg`)
     > NOTE: Create, edit and delete should fire an AJAX call that will save the data into redis on the Node server.
 
 #### Environment Requirements

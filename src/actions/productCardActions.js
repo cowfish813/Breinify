@@ -13,7 +13,6 @@ export const createCard = (newCard) => async dispatch => {
             description: newCard.description,
             productImg: newCard.productImg
         });
-
         return dispatch(receiveCard(res));
     } catch (err) {
         console.log(err);
@@ -23,10 +22,8 @@ export const createCard = (newCard) => async dispatch => {
 export const fetchCards = () => async dispatch => {
     try {
         const res = await axios.get('/get');
-        console.log(res, 'working');
         dispatch(receiveCards(res));
     } catch (err) {
-        debugger;
         console.log(err);
     }
 }
