@@ -7,7 +7,6 @@ const patchCard = createAction('PATCH_CARD');
 const removeCard = createAction('REMOVE_CARD');
 
 export const createCard = (newCard) => async dispatch => {
-    debugger;
     try {
         const res = await axios.post('/newCard', {
             productName: newCard.productName,
@@ -22,12 +21,14 @@ export const createCard = (newCard) => async dispatch => {
 }
 
 export const fetchCards = () => async dispatch => {
-    debugger;
     try {
+        debugger;
         const res = await axios.get('/get');
+        debugger;
         console.log(res, 'working');
         dispatch(receiveCards(res));
     } catch (err) {
+        debugger;
         console.log(err);
     }
 }

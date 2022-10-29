@@ -5,7 +5,7 @@ import { fetchCards } from '../../actions/productCardActions';
 import { useSelector, connect } from 'react-redux';
 // import axios from 'axios';
 
-const Dashboard = () => {
+const Dashboard = ({fetchCards}) => {
     const data = useSelector(state => {
         return state.productCards;
     })
