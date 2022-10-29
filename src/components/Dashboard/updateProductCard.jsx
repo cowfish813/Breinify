@@ -40,7 +40,6 @@ const UpdateProductCard = () => {
     const handleExit = () => {
         dispatch(unRenderModal());
     }
-
     if (isModalOpen) {
         return (
             <Modal.Dialog>
