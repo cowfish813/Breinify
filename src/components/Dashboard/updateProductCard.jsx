@@ -8,11 +8,11 @@ import { updateCard } from '../../actions/productCardActions';
 import { unRenderModal } from '../../actions/modalActions';
 
 const UpdateProductCard = () => {
-    const [productName, setProductName] = useState('');
     const [productImg, setProductImg] = useState('');
+    const [productName, setProductName] = useState('');
+    const id = useSelector(state => state.modalReducer.id);
     const isModalOpen = useSelector(state => state.modalReducer.modal);
     const dispatch = useDispatch();
-    const id = useSelector(state => state.modalReducer.id);
 
     const handleInputChange = (e) => {
         e.preventDefault();
@@ -40,7 +40,7 @@ const UpdateProductCard = () => {
     const handleExit = () => {
         dispatch(unRenderModal());
     }
-    
+
     if (isModalOpen) {
         return (
             <Modal.Dialog>

@@ -11,10 +11,7 @@ const CreateProductCard = () => {
     const [description, setDescription] = useState('');
     const dispatch = useDispatch();
 
-    //BUTTON
     const handleSubmit = () => {
-        // TODO
-        //IF CONDITION for empty fields for local error handling if time allows
         const newCard = {
             productName,
             description,

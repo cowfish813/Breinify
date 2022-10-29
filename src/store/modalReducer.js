@@ -13,6 +13,7 @@ const modalReducer = createReducer(initialState, builder => {
         })
         .addCase('CLOSE_MODAL', (NEW_STATE, action) => {
             NEW_STATE.modal = false;
+            NEW_STATE.id = null;
         })
 })
 

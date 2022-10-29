@@ -5,8 +5,6 @@ import { fetchCards } from '../../actions/productCardActions';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Dashboard = () => {
-    // const [sortNameFlag, setSortNameFlag] = useState(true);
-    // const [buttonSortName, setButtonSortName] = useState('ASC');
     const [sortDateFlag, setSortDateFlag] = useState(true);
     const [sortedData, setSortedData] = useState([]);
     const [buttonSortDate, setButtonSortDate] = useState('ASC');
@@ -21,17 +19,13 @@ const Dashboard = () => {
 
     const resetData = () => {
         const arr = [];
-        for (let key in data) {
-            arr.push(data[key]);
-        }
+        for (let key in data) arr.push(data[key]);
         setunsortedData(arr);
         sortDateASC(arr);
     }
 
     useEffect(() => {
-        if (data) {
-            resetData();
-        }
+        if (data) resetData();
     }, [data]) 
 
     //SORTING FUNCS
@@ -75,10 +69,8 @@ const Dashboard = () => {
         } else {
             resetData();
         }
-        console.log(sortedData.length,unsortedData.length)
     }, [searchField])
     
-
     return (
         <div>
             <CreateProductCard/>

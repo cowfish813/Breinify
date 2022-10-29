@@ -8,7 +8,6 @@ const ProductCard = (props) => {
     const {createdAt, description, productImg, productName, _id} = props.data
     const dispatch = useDispatch();
 
-    //BUTTONS
     const handleDelete = (e) => {
         e.preventDefault();
         dispatch(deleteCard(_id));
