@@ -32,7 +32,7 @@ const Dashboard = () => {
         if (data) {
             resetData();
         }
-    }, [data]) //Load sorted Array
+    }, [data]) 
 
     //SORTING FUNCS
     const sortProductCardsByDate = () => {
@@ -67,9 +67,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const arr = [];
-        for (let key in data) {
-            arr.push(data[key]);
-        }
+        for (let key in data) arr.push(data[key]);
         
         if (searchField.length > 0) {
             resetData();

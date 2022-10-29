@@ -13,7 +13,7 @@ const ProductCard = (props) => {
         e.preventDefault();
         dispatch(deleteCard(_id));
     } 
-    //TO DO
+
     const handleUpdate = (e) => {
         e.preventDefault();
         dispatch(renderModal());

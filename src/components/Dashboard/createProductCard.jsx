@@ -65,7 +65,7 @@ const CreateProductCard = () => {
             <Form.Group className="mb-3" >
                 <Form.Label>Product Image URL</Form.Label> 
                 <Form.Control 
-                    id='img' type="text" 
+                    id='img' type="url" 
                     placeholder="Enter Image Link" 
                     onInput={(e) => handleInputChange(e)} 
                     />
