@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { clearForm } from '../../util/util';
 import { useDispatch } from 'react-redux';
 import { createCard } from '../../actions/productCardActions';
+import { clearForm, getBase64 } from '../../util/util';
 
 const CreateProductCard = () => {
     const [productName, setProductName] = useState('')
@@ -19,8 +19,7 @@ const CreateProductCard = () => {
         }
         
         dispatch(createCard(newCard));
-        const ids = ['name', 'desc', 'img'];
-        // clearForm(ids);
+        document.getElementById('createProd').reset();
     }
 
     const handleInputChange = (e) => {
@@ -33,13 +32,14 @@ const CreateProductCard = () => {
         } else if (id ==='desc') {
             setDescription(value);
         } else if (id ==='img') {
-            setProductImg(value);
-            console.log(value);
+            //filter for size
+            const file = e.target.files[0]; 
+            getBase64(file, setProductImg);
         }
     }
 
     return (
-        <Form onSubmit={() => handleSubmit()}>
+        <Form id='createProd' onSubmit={() => handleSubmit()}>
             <Form.Group className="mb-3" >
                 <Form.Label>Name</Form.Label> 
                 <Form.Control 

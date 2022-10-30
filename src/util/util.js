@@ -4,3 +4,14 @@ export const clearForm = (idsArray) => {
         htmlID.value = '';
     })
 }
+
+export const getBase64 = async (file, setState) => {
+    let reader = new FileReader();
+    await reader.readAsDataURL(file);
+    reader.onload = ()  => {
+        setState(reader.result);
+    };
+    reader.onerror = (error) => {
+        console.log('Error: ', error);
+    };
+}

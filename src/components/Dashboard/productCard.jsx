@@ -23,27 +23,6 @@ const ProductCard = (props) => {
         dispatch(unRenderModal());
     }
 
-    console.log(productImg, 'productCard jsx');
-    const imageCheck = () => {
-        // const buffer = productImg.imagebuffer;
-        // let flag = false;
-        // const domainNames = ['https://', '.org', '.com', '.net', '.gov', '.mil', '.edu', '//', 'www.'];
-        // domainNames.forEach(name => { 
-        //     if (productImg.indexOf(name) > -1)flag = true 
-        // });
-
-        // if (flag) {
-        //     return (<img src={productImg}></img>);
-        // } else {
-        //     //locally stored image?
-        //     return(
-        //         <>
-        //             Invalid URL: {productImg}
-        //         </>
-        //     );
-        // }
-    }
-
     const buttonSwitch = () => {
         if (isModalOpen) {
             return (<button onClick={(e) => handleCancelUpdate(e)}>Cancel Update</button>)
@@ -55,11 +34,10 @@ const ProductCard = (props) => {
     return (
         <div>
             <div>
-                {imageCheck()}
+                <img src={productImg}></img>
                 <div>Product Name: {productName}</div>
                 <div>Description: {description}</div>
                 <div>{createdAt}</div>
-                {/* <button onClick={(e) => handleUpdate(e)}>Update</button> */}
                 {buttonSwitch()}
                 <button onClick={(e) => handleDelete(e)}>Delete</button>
             </div>
