@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
 import { createCard } from '../../actions/productCardActions';
-import { getBase64 } from '../../util/util';
+import { getBase64, clearFormById } from '../../util/util';
 
 const CreateProductCard = () => {
     const [productName, setProductName] = useState('')
@@ -19,7 +19,7 @@ const CreateProductCard = () => {
         }
         
         dispatch(createCard(newCard));
-        document.getElementById('createProd').reset();
+        clearFormById('createProd');
     }
 
     const handleInputChange = (e) => {
@@ -32,7 +32,7 @@ const CreateProductCard = () => {
         } else if (id ==='desc') {
             setDescription(value);
         } else if (id ==='img') {
-            //filter for size
+            //create filter for size
             const file = e.target.files[0]; 
             getBase64(file, setProductImg);
         }

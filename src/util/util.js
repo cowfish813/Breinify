@@ -1,4 +1,4 @@
-export const clearForm = (str) => {
+export const clearFormById = (str) => {
     document.getElementById(`${str}`).reset();
 }
 

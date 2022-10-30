@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { getBase64, clearForm } from '../../util/util';
+import { getBase64, clearFormById } from '../../util/util';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCard } from '../../actions/productCardActions';
 import { unRenderModal } from '../../actions/modalActions';
@@ -34,7 +34,7 @@ const UpdateProductCard = () => {
         }
         dispatch(updateCard(id, payload));
         dispatch(unRenderModal());
-        clearForm('updateProd');
+        clearFormById('updateProd');
     }
 
     const handleExit = () => {
