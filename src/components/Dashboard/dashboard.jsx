@@ -10,9 +10,8 @@ const Dashboard = () => {
     const [buttonSortDate, setButtonSortDate] = useState('ASC');
     const [searchField, setSearchField] = useState('');
     const data = useSelector(state => state.productCardReducer.productCards);
-    const [unsortedData, setunsortedData] = useState('');
     const dispatch = useDispatch();
-
+    
     useEffect(() => { //compdidmount
         dispatch(fetchCards());
     }, [dispatch]) 
@@ -20,8 +19,7 @@ const Dashboard = () => {
     const resetData = () => {
         const arr = [];
         for (let key in data) arr.push(data[key]);
-        setunsortedData(arr);
-        sortDateASC(arr);
+        maintainSort(arr);
     }
 
     useEffect(() => {
@@ -29,6 +27,14 @@ const Dashboard = () => {
     }, [data]) 
 
     //SORTING FUNCS
+    const maintainSort = (arr) => {
+        if (sortDateFlag) {
+            sortDateASC(arr);
+        } else {
+            sortDateDESC(arr);
+        }
+    }
+
     const sortProductCardsByDate = () => {
         setSortDateFlag(!sortDateFlag);
     }
