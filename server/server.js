@@ -3,8 +3,6 @@ import bodyParser from 'body-parser';
 import redis from 'redis';
 import ProductCard from './models/productCard.js';
 
-
-
 /**
  * Connect to redis
  */
