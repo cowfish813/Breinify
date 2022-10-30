@@ -29,7 +29,6 @@ app.get('/', (req, res) => {
 
 //redis key
 const key = 'pcs';
-// separate image key for reqs? or maintain urls?
 
 //HELPERS
 const fetchDB = async() => {
@@ -51,20 +50,7 @@ app.get('/get', async (req, res) => {
 });
 
 
-
-
-// POST
-// convert image imports
-// import fs from 'fs';
-// 	// base64 encoding
-// // Pipes an image with "new-path.jpg" as the name.
-
 app.post('/newCard', async (req, res) => {
-	// fs.writeFileSync("new-path.jpg"); //returns buffer
-	
-	// fs.writeFileSync("new-path.jpg", buffer);
-	// const base64 = fs.readFileSync("path-to-image.jpg", "base64");
-	// const buffer = Buffer.from(base64, "base64");
 	const redisDB = await fetchDB();
 	const newCard = new ProductCard({
         productName: req.body.productName,
