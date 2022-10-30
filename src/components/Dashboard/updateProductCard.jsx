@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { clearForm } from '../../util/util';
+import { getBase64, clearForm } from '../../util/util';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCard } from '../../actions/productCardActions';
 import { unRenderModal } from '../../actions/modalActions';
@@ -22,7 +22,8 @@ const UpdateProductCard = () => {
         if (id === 'update-name') {
             setProductName(value);
         } else if (id ==='update-img') {
-            setProductImg(value);
+            const file = e.target.files[0]; 
+            getBase64(file, setProductImg);
         }
     }
 
@@ -33,8 +34,7 @@ const UpdateProductCard = () => {
         }
         dispatch(updateCard(id, payload));
         dispatch(unRenderModal());
-        const ids = ['update-name', 'update-img'];
-        clearForm(ids);
+        clearForm('updateProd');
     }
 
     const handleExit = () => {
@@ -48,7 +48,7 @@ const UpdateProductCard = () => {
                 </Modal.Header>
     
                 <Modal.Body>
-                    <Form onSubmit={() => handleSubmit()}>
+                    <Form id='updateProd' onSubmit={() => handleSubmit()}>
                         <Form.Group className="mb-3" >
                             <Form.Label>Update Name</Form.Label> 
                             <Form.Control 
@@ -63,7 +63,7 @@ const UpdateProductCard = () => {
                             <Form.Label>Update Image</Form.Label> 
                             <Form.Control 
                                 id='update-img' 
-                                type="text" 
+                                type="file" 
                                 placeholder="Enter New Image URL" 
                                 onInput={(e) => handleInputChange(e)} 
                                 />

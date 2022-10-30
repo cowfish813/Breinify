@@ -1,8 +1,5 @@
-export const clearForm = (idsArray) => {
-    idsArray.forEach(id => { //consider modularizing this
-        const htmlID = document.getElementById(id);
-        htmlID.value = '';
-    })
+export const clearForm = (str) => {
+    document.getElementById(`${str}`).reset();
 }
 
 export const getBase64 = async (file, setState) => {

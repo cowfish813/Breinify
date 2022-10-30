@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
 import { createCard } from '../../actions/productCardActions';
-import { clearForm, getBase64 } from '../../util/util';
+import { getBase64 } from '../../util/util';
 
 const CreateProductCard = () => {
     const [productName, setProductName] = useState('')
