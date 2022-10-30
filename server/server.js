@@ -3,6 +3,8 @@ import bodyParser from 'body-parser';
 import redis from 'redis';
 import ProductCard from './models/productCard.js';
 
+
+
 /**
  * Connect to redis
  */
@@ -50,14 +52,29 @@ app.get('/get', async (req, res) => {
 	res.send({ value: JSON.parse(value) });
 });
 
+
+
+
 // POST
+// convert image imports
+// import fs from 'fs';
+// 	// base64 encoding
+// // Pipes an image with "new-path.jpg" as the name.
+
 app.post('/newCard', async (req, res) => {
+	// fs.writeFileSync("new-path.jpg"); //returns buffer
+	
+	// fs.writeFileSync("new-path.jpg", buffer);
+	// const base64 = fs.readFileSync("path-to-image.jpg", "base64");
+	// const buffer = Buffer.from(base64, "base64");
 	const redisDB = await fetchDB();
 	const newCard = new ProductCard({
         productName: req.body.productName,
         description: req.body.description,
 		productImg: req.body.productImg
+
     })
+	console.log(newCard);
 	redisDB[newCard._id] = newCard;
 	res.send({ value: redisDB[newCard._id] });
 	saveDB(key, redisDB);

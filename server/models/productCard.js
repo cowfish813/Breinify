@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
+
 const ProductCardSchema = Schema({
     productName: {
         type: String,
@@ -9,7 +10,7 @@ const ProductCardSchema = Schema({
     },
     productImg: {
         type: String,
-        default: 'https://picsum.photos/200'
+        
     },
     createdAt: {
         type: Date, 
