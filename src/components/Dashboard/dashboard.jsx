@@ -11,7 +11,7 @@ const Dashboard = () => {
     const [searchField, setSearchField] = useState('');
     const data = useSelector(state => state.productCardReducer.productCards);
     const dispatch = useDispatch();
-    
+
     useEffect(() => { //compdidmount
         dispatch(fetchCards());
     }, [dispatch]) 
@@ -28,11 +28,7 @@ const Dashboard = () => {
 
     //SORTING FUNCS
     const maintainSort = (arr) => {
-        if (sortDateFlag) {
-            sortDateASC(arr);
-        } else {
-            sortDateDESC(arr);
-        }
+        sortDateFlag ? sortDateASC(arr) : sortDateDESC(arr);
     }
 
     const sortProductCardsByDate = () => {
@@ -82,7 +78,12 @@ const Dashboard = () => {
             <CreateProductCard/>
             <div id='card-container'>
                 <button onClick={() => sortProductCardsByDate()}>Sort Product By Date: {buttonSortDate}</button>
-                <input id='search' onChange={(e) => handleSearch(e)} type='search'></input>
+                <input 
+                    id='search' 
+                    placeholder='Seach By Name'
+                    onChange={(e) => handleSearch(e)} 
+                    type='search'
+                    />
                 {sortedData.map(card => <ProductCard data={card} />)}
             </div>
         </div>
