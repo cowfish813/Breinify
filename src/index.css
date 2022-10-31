@@ -35,16 +35,15 @@ body {
     z-index: 2;
 }
 
-.border {
-    /* border: solid 10px #181818; */
+.card-border {
     border-radius: 2%;
     padding: 15px;
+    border: #212529 solid 1px;
 }
 
 .mid {
     display: flex;
     justify-content: center;
-    /* align-items: center; */
 }
 
 .pic {

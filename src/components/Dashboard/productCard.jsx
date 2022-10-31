@@ -2,14 +2,19 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCard } from '../../actions/productCardActions';
 import { renderModal, unRenderModal } from '../../actions/modalActions';
-// import moment from 'moment/moment';
+import { format } from 'prettier';
 
 const ProductCard = (props) => { 
     const {createdAt, description, productImg, productName, _id} = props.data;
     const isModalOpen = useSelector(state => state.modalReducer.modal);
-    // const date;
-    // const date = createdAt.getDate()
     const dispatch = useDispatch();
+
+    const formatDate = (date) => {
+        const res = new Date(date)
+        console.log();
+    }
+
+formatDate(createdAt);
 
     const handleDelete = (e) => {
         e.preventDefault();
@@ -35,7 +40,7 @@ const ProductCard = (props) => {
     }
 
     return (
-        <div id='card-container' className='border margin-top-20px mid flex flex-col flex-center'>
+        <div id='prod-card' className='card-border margin-top-20px mid flex flex-col flex-center'>
             <h1 className=''>Product Name: {productName}</h1>
             <div className='flex'>
                 <img className='pic' src={productImg}></img>
