@@ -13,6 +13,7 @@ const UpdateProductCard = () => {
     const id = useSelector(state => state.modalReducer.id);
     const isModalOpen = useSelector(state => state.modalReducer.modal);
     const dispatch = useDispatch();
+    const body = document.body;
 
     const handleInputChange = (e) => {
         e.preventDefault();
@@ -40,11 +41,14 @@ const UpdateProductCard = () => {
     const handleExit = () => {
         dispatch(unRenderModal());
     }
-    if (isModalOpen) {
-        return (
-            <Modal.Dialog id='update-modal' className='card-border pad bg-white fixed relative-middle'>
+
+    return (
+        <Modal 
+            show={isModalOpen}
+        >
+            <Modal.Dialog id='update-modal' className='standard modal-content card-border pad bg-white fixed'>
                 <Modal.Header closeButton onClick={() => handleExit()}>
-                    <Modal.Title className='mgbt'>Update Product Card</Modal.Title>
+                    <Modal.Title className='modal-title'>Update Product Card</Modal.Title>
                 </Modal.Header>
     
                 <Modal.Body>
@@ -74,12 +78,10 @@ const UpdateProductCard = () => {
                         </Button>
                     </Form>
                 </Modal.Body>
-    
             </Modal.Dialog>
-        );
-    } else {
-        return (<></>);
-    }
+        </Modal>
+    );
+
 }
 
 export default UpdateProductCard;

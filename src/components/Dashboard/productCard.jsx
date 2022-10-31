@@ -24,14 +24,6 @@ const ProductCard = (props) => {
         dispatch(unRenderModal());
     }
 
-    const buttonSwitch = () => {
-        if (isModalOpen) {
-            return (<button id='' className='button blue' onClick={(e) => handleCancelUpdate(e)}>Cancel Update</button>)
-        } else {
-            return (<button id='' className='button blue' onClick={(e) => handleUpdate(e)}>Update</button>)
-        }
-    }
-
     return (
         <div id='prod-card' className='card-border margin-top-20px mid flex flex-col flex-center'>
             <h1 className=''>Product Name: {productName}</h1>
@@ -46,7 +38,7 @@ const ProductCard = (props) => {
             </div>
 
             <div id='btn-container' className='flex flex-center'>
-                {buttonSwitch()}
+                <button id='' className='button blue' onClick={(e) => handleUpdate(e)}>Update</button>
                 <button id='' className='red button' onClick={(e) => handleDelete(e)}>Delete</button>
             </div>
         </div>        

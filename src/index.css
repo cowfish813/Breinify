@@ -1,15 +1,12 @@
-body {
+.standard {
     background: #404040;
     color: white;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .font-title {
     color: white;
     font-size: 20px;
-}
-
-.standard {
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .fixed {
@@ -22,6 +19,14 @@ body {
 
 .pad {
     padding: 3%;
+}
+
+.modal-title {
+    color: black;
+}
+
+.modal-backdrop {
+    background-color: grey;
 }
 
 .relative-middle {
