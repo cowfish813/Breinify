@@ -1,12 +1,11 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deleteCard } from '../../actions/productCardActions';
-import { renderModal, unRenderModal } from '../../actions/modalActions';
+import { renderModal } from '../../actions/modalActions';
 import { formatDate } from '../../util/util';
 
 const ProductCard = (props) => { 
     const {createdAt, description, productImg, productName, _id} = props.data;
-    const isModalOpen = useSelector(state => state.modalReducer.modal);
     const dispatch = useDispatch();
 
     const handleDelete = (e) => {
@@ -17,11 +16,6 @@ const ProductCard = (props) => {
     const handleUpdate = (e) => {
         e.preventDefault();
         dispatch(renderModal(_id));
-    }
-
-    const handleCancelUpdate = e => {
-        e.preventDefault();
-        dispatch(unRenderModal());
     }
 
     return (
