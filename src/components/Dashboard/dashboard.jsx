@@ -89,7 +89,7 @@ const Dashboard = () => {
                     onChange={(e) => handleSearch(e)} 
                     type='search'
                     />
-                <div id='card-container' className='flex-center flex flex-col'>
+                <div id='card-container' className='margin-btm-10 margin-top-20px flex-center flex flex-col'>
                     {sortedData.map(card => <ProductCard data={card} />)}
                 </div>
             </div>
