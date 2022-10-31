@@ -13,7 +13,6 @@ const UpdateProductCard = () => {
     const id = useSelector(state => state.modalReducer.id);
     const isModalOpen = useSelector(state => state.modalReducer.modal);
     const dispatch = useDispatch();
-    const body = document.body;
 
     const handleInputChange = (e) => {
         e.preventDefault();

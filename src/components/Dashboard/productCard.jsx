@@ -22,7 +22,7 @@ const ProductCard = (props) => {
         <div id='prod-card' className='card-border margin-top-20px mid flex flex-col flex-center'>
             <h1 className=''>Product Name: {productName}</h1>
             <div className='flex'>
-                <img className='pic' src={productImg}></img>
+                <img alt='' className='pic' src={productImg}></img>
             </div>
 
             <div className='margin-top-20px flex flex-col'>
