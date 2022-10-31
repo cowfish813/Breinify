@@ -1,6 +1,6 @@
 export const clearFormById = (str) => {
     document.getElementById(`${str}`).reset();
-}
+};
 
 export const getBase64 = async (file, setState) => {
     let reader = new FileReader();
@@ -12,7 +12,7 @@ export const getBase64 = async (file, setState) => {
         console.log('1Error: ', error);
         
     };
-}
+};
 
 export const resizeImage = (file, resizeFactor, quality) => { //quality between 0-1
     const canvas = document.createElement('canvas');
@@ -30,4 +30,12 @@ export const resizeImage = (file, resizeFactor, quality) => { //quality between 
         if (blob) img.src = URL.createObjectURL();
     }, 'image/jpeg', quality)
 
-}
+};
+
+export const formatDate = (date) => {
+    const res = new Date(date)
+    const month = res.getMonth();
+    const day = res.getDate();
+    const year = res.getFullYear();
+    return month + '/' +  day + '/' + year
+};
