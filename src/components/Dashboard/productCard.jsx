@@ -32,16 +32,18 @@ const ProductCard = (props) => {
     }
 
     return (
-        <div>
-            <div>
-                <img src={productImg}></img>
-                <div>Product Name: {productName}</div>
-                <div>Description: {description}</div>
-                <div>{createdAt}</div>
+        <div className='mid flex flex-col flex-center'>
+            <div className='flex'>
+                <img className='pic' src={productImg}></img>
+            </div>
+            <div>Product Name: {productName}</div>
+            <div>Description: {description}</div>
+            <div>{createdAt}</div>
+            <div id='btn-container' className='flex flex-center'>
                 {buttonSwitch()}
                 <button id='' className='red button' onClick={(e) => handleDelete(e)}>Delete</button>
             </div>
-        </div>
+        </div>        
     )
 
 }
