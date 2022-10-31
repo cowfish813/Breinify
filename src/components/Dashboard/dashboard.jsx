@@ -89,7 +89,9 @@ const Dashboard = () => {
                     onChange={(e) => handleSearch(e)} 
                     type='search'
                     />
-                {sortedData.map(card => <ProductCard data={card} />)}
+                <div className=''>
+                    {sortedData.map(card => <ProductCard data={card} />)}
+                </div>
             </div>
         </div>
     )

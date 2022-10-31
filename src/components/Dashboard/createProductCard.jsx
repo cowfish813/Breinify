@@ -39,7 +39,8 @@ const CreateProductCard = () => {
     }
 
     return (
-        <Form id='createProd' onSubmit={() => handleSubmit()}>
+        <Form id='createProd' className='margin-2' onSubmit={() => handleSubmit()}>
+            <Form.Text className='font-title'>Create New Card</Form.Text>
             <Form.Group className="mb-3" >
                 <Form.Label>Name</Form.Label> 
                 <Form.Control 
