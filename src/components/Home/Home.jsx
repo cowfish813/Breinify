@@ -4,7 +4,7 @@ import UpdateProductCard from '../Dashboard/updateProductCard';
 export function Home() {
 
 	return (
-		<div>
+		<div id='dashboard_container' className='standard relative'>
 			<h1>Breinify Code Challenge</h1>
 			<UpdateProductCard/>
 			<Dashboard/>

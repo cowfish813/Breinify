@@ -42,9 +42,9 @@ const UpdateProductCard = () => {
     }
     if (isModalOpen) {
         return (
-            <Modal.Dialog>
+            <Modal.Dialog id='update-modal' className='border pad bg-white fixed relative-middle'>
                 <Modal.Header closeButton onClick={() => handleExit()}>
-                    <Modal.Title>Update Product Card</Modal.Title>
+                    <Modal.Title className='mgbt'>Update Product Card</Modal.Title>
                 </Modal.Header>
     
                 <Modal.Body>

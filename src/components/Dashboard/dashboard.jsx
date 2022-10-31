@@ -74,12 +74,17 @@ const Dashboard = () => {
     }, [searchField])
     
     return (
-        <div>
+        <div id='dashboard' className='flex flex-col'>
             <CreateProductCard/>
             <div id='card-container'>
-                <button onClick={() => sortProductCardsByDate()}>Sort Product By Date: {buttonSortDate}</button>
+                <button 
+                    className='btn btn-primary'                    onClick={() => sortProductCardsByDate()}
+                    >
+                    Sort Product By Date: {buttonSortDate}
+                </button>
                 <input 
                     id='search' 
+
                     placeholder='Seach By Name'
                     onChange={(e) => handleSearch(e)} 
                     type='search'

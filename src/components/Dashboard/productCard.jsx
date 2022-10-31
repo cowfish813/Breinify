@@ -25,9 +25,9 @@ const ProductCard = (props) => {
 
     const buttonSwitch = () => {
         if (isModalOpen) {
-            return (<button onClick={(e) => handleCancelUpdate(e)}>Cancel Update</button>)
+            return (<button id='' className='button blue' onClick={(e) => handleCancelUpdate(e)}>Cancel Update</button>)
         } else {
-            return (<button onClick={(e) => handleUpdate(e)}>Update</button>)
+            return (<button id='' className='button button blue' onClick={(e) => handleUpdate(e)}>Update</button>)
         }
     }
 
@@ -39,7 +39,7 @@ const ProductCard = (props) => {
                 <div>Description: {description}</div>
                 <div>{createdAt}</div>
                 {buttonSwitch()}
-                <button onClick={(e) => handleDelete(e)}>Delete</button>
+                <button id='' className='red button' onClick={(e) => handleDelete(e)}>Delete</button>
             </div>
         </div>
     )
