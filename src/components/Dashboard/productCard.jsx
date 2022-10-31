@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCard } from '../../actions/productCardActions';
 import { renderModal, unRenderModal } from '../../actions/modalActions';
-import { format } from 'prettier';
+
 
 const ProductCard = (props) => { 
     const {createdAt, description, productImg, productName, _id} = props.data;
@@ -11,7 +11,10 @@ const ProductCard = (props) => {
 
     const formatDate = (date) => {
         const res = new Date(date)
-        console.log();
+        const month = res.getMonth();
+        const day = res.getDate();
+        const year = res.getFullYear();
+        return month + '/' +  day + '/' + year
     }
 
 formatDate(createdAt);
@@ -49,6 +52,7 @@ formatDate(createdAt);
             <div className='margin-top-20px flex flex-col'>
                 <p>Description: {description}</p>
                 <p>{createdAt}</p>
+                <p>{formatDate(createdAt)}</p>
             </div>
 
             <div id='btn-container' className='flex flex-center'>
