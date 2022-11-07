@@ -20,7 +20,7 @@ const CreateProductCard = () => {
         
         dispatch(createCard(newCard));
         clearFormById('createProd');
-    }
+    } //
 
     const handleInputChange = (e) => {
         e.preventDefault();
@@ -38,7 +38,10 @@ const CreateProductCard = () => {
         }
     }
 
-    return (
+    return (                                                    //get rid of fat arrow onSubmit={() => handleSubmit()}
+                                                                    //only time you need to fat arrow is if you pass args
+                                                                        //otherwise can be done uninvoked
+                                                                                // {handleSubmit}
         <Form id='createProd' className='margin-btm-2' onSubmit={() => handleSubmit()}>
             <Form.Text className='font-title'>Create New Card</Form.Text>
             <Form.Group className="mb-3" >
@@ -57,7 +60,8 @@ const CreateProductCard = () => {
                     id='desc' 
                     as="textarea" 
                     placeholder="Enter Description" 
-                    onInput={(e) => handleInputChange(e)} 
+                    onInput={handleInputChange} 
+                        // dont have to explicitly pass 'e'
                     />
             </Form.Group>
 

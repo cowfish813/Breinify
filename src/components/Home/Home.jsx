@@ -11,3 +11,8 @@ export function Home() {
 		</div>
 	);
 }
+
+// disorganization
+//getting rid of stuff i'm not using eg entire files or functions not being used
+	//esp. files i was not using
+

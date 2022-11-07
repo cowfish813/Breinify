@@ -20,7 +20,9 @@ const Dashboard = () => {
         const arr = [];
         for (let key in data) arr.push(data[key]);
         maintainSort(arr);
-    }
+    } //comment to explain this
+            //i => had to reset sort when adding new card
+                    //
 
     useEffect(() => {
         if (data) resetData();
@@ -66,10 +68,14 @@ const Dashboard = () => {
         for (let key in data) arr.push(data[key]);
         
         if (searchField.length > 0) {
-            resetData();
+            resetData(); //why did i reset my data?
+                    //should comment why i did those things
+                    //big flag on writing additional comments or documentation
             setSortedData(arr.filter(product => product.productName.indexOf(searchField) > -1));
         } else {
-            resetData();
+            resetData(); 
+            //if i reset data in if/else, just call it above if statement
+
         }
     }, [searchField])
     
@@ -78,7 +84,8 @@ const Dashboard = () => {
             <CreateProductCard/>
             <div id='card-container'>
                 <button 
-                    className='btn btn-primary'                    onClick={() => sortProductCardsByDate()}
+                    className='btn btn-primary'                    
+                    onClick={() => sortProductCardsByDate()}
                     >
                     Sort Product By Date: {buttonSortDate}
                 </button>
@@ -91,6 +98,8 @@ const Dashboard = () => {
                     />
                 <div id='card-container' className='margin-btm-10 margin-top-20px flex-center flex flex-col'>
                     {sortedData.map(card => <ProductCard data={card} />)}
+                                            {/* pass in card.data instead */}
+                                            {/* easier to destructure out of props */}
                 </div>
             </div>
         </div>

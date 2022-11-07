@@ -29,7 +29,6 @@ export const resizeImage = (file, resizeFactor, quality) => { //quality between 
     return canvas.toBlob(blob => {
         if (blob) img.src = URL.createObjectURL();
     }, 'image/jpeg', quality)
-
 };
 
 export const formatDate = (date) => {

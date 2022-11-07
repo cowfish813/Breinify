@@ -84,3 +84,7 @@ const UpdateProductCard = () => {
 }
 
 export default UpdateProductCard;
+
+//combine with create
+    //many shared resources in update vs create
+        

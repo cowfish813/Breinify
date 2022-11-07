@@ -21,3 +21,6 @@ const ProductCardSchema = Schema({
 const ProductCard = mongoose.model('ProductCard', ProductCardSchema);
 
 export default ProductCard;
+///probably unnecessary
+    //UUID - much more lightweight to generate ID
+    //redis acts as a cache in between mongodb and server
